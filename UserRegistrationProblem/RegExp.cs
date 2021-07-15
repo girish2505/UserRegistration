@@ -24,5 +24,21 @@ namespace UserRegistrationProblem
                 Console.WriteLine("First name starts with Cap and has minimum 3 characters");
             }
         }
+        public void ValidateLastName()
+        {
+            Regex exp = new Regex(s);
+            Console.WriteLine("Enter Last name :");
+            string lastName = Console.ReadLine();
+            bool result = Regex.IsMatch(lastName, s);
+            if (result)
+            {
+                Console.WriteLine("Valid name");
+            }
+            else
+            {
+                Console.WriteLine("Invalid name");
+                Console.WriteLine("Last name starts with Cap and has minimum 3 characters");
+            }
+        }
     }
 }
