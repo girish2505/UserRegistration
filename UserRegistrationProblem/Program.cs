@@ -8,9 +8,7 @@ namespace UserRegistrationProblem
         {
             Console.WriteLine("-----> User Registration Problem <-----");
             RegExp regExp = new RegExp();
-            regExp.ValidateFirstName();
-            regExp.ValidateLastName();
-            regExp.ValidateEmail();
+            regExp.ValidateMobileNumber();
         }
     }
 }
