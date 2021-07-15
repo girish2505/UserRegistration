@@ -40,5 +40,23 @@ namespace UserRegistrationProblem
                 Console.WriteLine("Last name starts with Cap and has minimum 3 characters");
             }
         }
+        public void ValidateEmail()
+        {
+            string[] email = { "abc@yahoo.com", "abc-100$yahoo.com", "abc.100@yahoo.com", "abc111@abc.com", "abc.100@abc.net.in", "abc#1.com" };
+            string s = @"^[a-zA-Z]{3}([\- \+ _\.]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]+\.[a-z]{2,3}(\.[a-zA-Z]{2,4}){0,1}$";
+            Regex exp = new Regex(s);
+            foreach (string i in email)
+            {
+                Match res = exp.Match(i);
+                if (res.Success)
+                {
+                    Console.WriteLine($"Valid  {i}");
+                }
+                else
+                {
+                    Console.WriteLine($"InValid  {i}");
+                }
+            }
+        }
     }
 }

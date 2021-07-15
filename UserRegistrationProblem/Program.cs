@@ -10,6 +10,7 @@ namespace UserRegistrationProblem
             RegExp regExp = new RegExp();
             regExp.ValidateFirstName();
             regExp.ValidateLastName();
+            regExp.ValidateEmail();
         }
     }
 }
