@@ -76,5 +76,21 @@ namespace UserRegistrationProblem
                 }
             }
         }
+        public void ValidatePassword()
+        {
+            string s = @"^[a-zA-Z0-9]{8,}$";
+            Regex regex = new Regex(s);
+            Console.WriteLine("Enter password :");
+            string password = Console.ReadLine();
+            bool res = Regex.IsMatch(password, s);
+            if (res)
+            {
+                Console.WriteLine("Valid");
+            }
+            else
+            {
+                Console.WriteLine("Invalid");
+            }
+        }
     }
 }
