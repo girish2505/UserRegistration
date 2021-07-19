@@ -5,91 +5,133 @@ using System.Text;
 
 namespace UserRegistrationProblem
 {
-    class RegExp
+    public class RegExp
     {
-        public static string s = "^[A-Z][a-z]{2,}$";
-        public void ValidateFirstName()
+        string message;
+        public RegExp()
         {
-            Regex exp = new Regex(s);
-            Console.WriteLine("Enter first name :");
-            string firstName = Console.ReadLine();
-            bool result = Regex.IsMatch(firstName, s);
-            if (result)
+            Console.WriteLine("Default Constructor");
+        }
+        public RegExp(string message)
+        {
+            this.message = message;
+        }
+        public static string ValidateFirstName(string firstName)
+        {
+            string result = "Valid";
+            Regex regex = new Regex(@"^[A-Z]{1}[a-z]{2,}");
+            Match match = regex.Match(firstName);
+            if (match.Success)
             {
-                Console.WriteLine("Valid name");
+                Console.WriteLine(firstName + "Valid");
             }
             else
             {
-                Console.WriteLine("Invalid name");
-                Console.WriteLine("First name starts with Cap and has minimum 3 characters");
+                Console.WriteLine(firstName + "Invalid");
+                result = "Invalid";
             }
+            return result;
         }
-        public void ValidateLastName()
+        public static string ValidateLastName(string lastName)
         {
-            Regex exp = new Regex(s);
-            Console.WriteLine("Enter Last name :");
-            string lastName = Console.ReadLine();
-            bool result = Regex.IsMatch(lastName, s);
-            if (result)
+            string result = "Valid";
+            Regex regex = new Regex(@"^[A-Z]{1}[a-z]{2,}");
+            if (lastName != "")
             {
-                Console.WriteLine("Valid name");
-            }
-            else
-            {
-                Console.WriteLine("Invalid name");
-                Console.WriteLine("Last name starts with Cap and has minimum 3 characters");
-            }
-        }
-        public void ValidateEmail()
-        {
-            string[] email = { "abc@yahoo.com", "abc-100$yahoo.com", "abc.100@yahoo.com", "abc111@abc.com", "abc.100@abc.net.in", "abc#1.com" };
-            string s = @"^[a-zA-Z]{3}([\- \+ _\.]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]+\.[a-z]{2,3}(\.[a-zA-Z]{2,4}){0,1}$";
-            Regex exp = new Regex(s);
-            foreach (string i in email)
-            {
-                Match res = exp.Match(i);
-                if (res.Success)
+                Match match = regex.Match(lastName);
+                if (match.Success)
                 {
-                    Console.WriteLine($"Valid  {i}");
+                    Console.WriteLine(lastName + "Valid");
                 }
                 else
                 {
-                    Console.WriteLine($"InValid  {i}");
+                    Console.WriteLine(lastName + "Invalid");
+                    result = "Invalid";
                 }
-            }
-        }
-        public void ValidateMobileNumber()
-        {
-            string[] number = { "91 7660094458", "91 9182501714","144 9848022338", "31 123456", "+1 9108542398" };
-            string s = @"^[1-9]{2}[ ][0-9]{10}$";
-            Regex exp = new Regex(s);
-            foreach (string i in number)
-            {
-                Match res = exp.Match(i);
-                if (res.Success)
-                {
-                    Console.WriteLine($"Valid  {i}");
-                }
+                if (result == "Invalid")
+                    throw new CustomException(CustomException.ExceptionType.INVALID_NAME, "Invalid Last Name");
                 else
-                {
-                    Console.WriteLine($"InValid  {i}");
-                }
-            }
-        }
-        public void ValidatePassword()
-        {
-            string s = @"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$";
-            Regex regex = new Regex(s);
-            Console.WriteLine("Enter password :");
-            string password = Console.ReadLine();
-            bool res = Regex.IsMatch(password, s);
-            if (res)
-            {
-                Console.WriteLine("Valid");
+                    return result;
             }
             else
             {
-                Console.WriteLine("Invalid");
+                throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Empty Last Name");
+            }
+        }
+        public static string ValidateEmail(string email)
+        {
+            string result = "Valid";
+            Regex regex = new Regex(@"^[a-zA-Z]{3}([\- \+ _\.]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]+\.[a-z]{2,3}(\.[a-zA-Z]{2,4}){0,1}$");
+            Match match = regex.Match(email);
+            if (match.Success)
+            {
+                Console.WriteLine(email + "Valid");
+            }
+            else
+            {
+                Console.WriteLine(email + "Invalid");
+                result = "Invalid";
+            }
+            if (result == "Invalid")
+            {
+                throw new CustomException(CustomException.ExceptionType.INVALID_EMAIL, "Email is invalid");
+            }
+            else
+            {
+                return result;
+            }
+        }
+        public static string ValidatePhoneNumber(string number)
+        {
+            string result = "Valid";
+            string pattern = @"^[1-9]{2}[ ][0-9]{10}$";
+            Regex regex = new Regex(pattern);
+            if (number != null)
+            {
+                Match match = regex.Match(number);
+                if (match.Success)
+                {
+                    Console.WriteLine(number + "Valid");
+                    result = "Valid";
+                }
+                else
+                {
+                    Console.WriteLine(number + "Invalid");
+                    result = "Invalid";
+                }
+                if (result == "Invalid")
+                    throw new CustomException(CustomException.ExceptionType.INVALID_PHONE, "Invalid PhoneNumber");
+                else
+                    return result;
+            }
+            else
+            {
+                throw new CustomException(CustomException.ExceptionType.NULL_MESSAGE, "Null");
+            }
+        }
+        public static string ValidatePassword(string password)
+        {
+            string result = "Valid";
+            string pattern = @"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$";
+            Regex regex = new Regex(pattern);
+
+            Match match = regex.Match(password);
+            if (match.Success)
+            {
+                Console.WriteLine(password + "Valid");
+                result = "Valid";
+            }
+            else
+            {
+                Console.WriteLine(password + "Invalid");
+                result = "Invalid";
+            }
+
+            if (result == "Invalid")
+                throw new CustomException(CustomException.ExceptionType.INVALID_PASSWORD, "Invalid Password");
+            else
+            {
+                return result;
             }
         }
     }
