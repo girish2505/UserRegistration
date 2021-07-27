@@ -16,7 +16,7 @@ namespace UserRegistrationProblem
         {
             this.message = message;
         }
-        public static string ValidateFirstName(string firstName)
+        public static Func<string, string> ValidatingFirstName = (firstName) =>
         {
             string result = "Valid";
             Regex regex = new Regex(@"^[A-Z]{1}[a-z]{2,}");
@@ -31,8 +31,8 @@ namespace UserRegistrationProblem
                 result = "Invalid";
             }
             return result;
-        }
-        public static string ValidateLastName(string lastName)
+        };
+        public static Func<string, string> ValidatingLastName = (lastName) =>
         {
             string result = "Valid";
             Regex regex = new Regex(@"^[A-Z]{1}[a-z]{2,}");
@@ -57,8 +57,8 @@ namespace UserRegistrationProblem
             {
                 throw new CustomException(CustomException.ExceptionType.EMPTY_MESSAGE, "Empty Last Name");
             }
-        }
-        public static string ValidateEmail(string email)
+        };
+        public static Func<string, string> ValidatingEmail = (email) =>
         {
             string result = "Valid";
             Regex regex = new Regex(@"^[a-zA-Z]{3}([\- \+ _\.]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]+\.[a-z]{2,3}(\.[a-zA-Z]{2,4}){0,1}$");
@@ -80,8 +80,8 @@ namespace UserRegistrationProblem
             {
                 return result;
             }
-        }
-        public static string ValidatePhoneNumber(string number)
+        };
+        public static Func<string, string> ValidatingPhoneNumber = (number) =>
         {
             string result = "Valid";
             string pattern = @"^[1-9]{2}[ ][0-9]{10}$";
@@ -108,8 +108,8 @@ namespace UserRegistrationProblem
             {
                 throw new CustomException(CustomException.ExceptionType.NULL_MESSAGE, "Null");
             }
-        }
-        public static string ValidatePassword(string password)
+        };
+        public static Func<string, string> ValidatingPassword = (password) =>
         {
             string result = "Valid";
             string pattern = @"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=]).*$";
@@ -133,6 +133,6 @@ namespace UserRegistrationProblem
             {
                 return result;
             }
-        }
+        };
     }
 }
